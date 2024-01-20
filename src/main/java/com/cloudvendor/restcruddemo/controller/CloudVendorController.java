@@ -1,7 +1,10 @@
 package com.cloudvendor.restcruddemo.controller;
 
 import com.cloudvendor.restcruddemo.model.CloudVendor;
+import com.cloudvendor.restcruddemo.response.ResponseHandler;
 import com.cloudvendor.restcruddemo.service.CloudVendorService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,14 +19,24 @@ public class CloudVendorController {
     }
 
     @GetMapping("{vendorId}")
-    public CloudVendor getCloudVendorDetails(@PathVariable("vendorId") String vendorId) {
-        return cloudVendorService.getCloudVendor(vendorId);
+    public ResponseEntity<Object> getCloudVendorDetails(@PathVariable("vendorId") String vendorId) {
+        return ResponseHandler
+                .responseBuilder(
+                        "Requested details fetched successfully.",
+                        HttpStatus.OK,
+                        cloudVendorService.getCloudVendor(vendorId)
+                );
     }
 
 
     @GetMapping()
-    public List<CloudVendor> getAllCloudVendorDetails() {
-        return cloudVendorService.getAllCloudVendor();
+    public ResponseEntity<Object> getAllCloudVendorDetails() {
+        return ResponseHandler
+                .responseBuilder(
+                        "Requested details fetched successfully.",
+                        HttpStatus.OK,
+                        cloudVendorService.getAllCloudVendor()
+                );
     }
 
     @PostMapping

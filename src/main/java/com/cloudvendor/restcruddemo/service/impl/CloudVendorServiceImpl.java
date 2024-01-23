@@ -41,6 +41,14 @@ public class CloudVendorServiceImpl implements CloudVendorService {
         }
         return cloudVendorRepository.findById(cloudVendorId).get();
     }
+    @Override
+    public List<CloudVendor> getByCloudVendorName(String cloudVendorName) {
+        if(cloudVendorRepository.findByVendorName(cloudVendorName).isEmpty()) {
+            throw new CloudVendorNotFoundException("Requested Cloud Vendor doesn't exist in our database.");
+        }
+
+        return cloudVendorRepository.findByVendorName(cloudVendorName);
+    }
 
     @Override
     public List<CloudVendor> getAllCloudVendor() {
